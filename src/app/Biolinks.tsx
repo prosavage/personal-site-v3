@@ -1,5 +1,6 @@
 "use client"
 import React from "react"
+import Image from "next/image"
 
 interface BiolinksProps {
 
@@ -23,7 +24,7 @@ export const Biolinks: React.FC<BiolinksProps> = ({ }) => {
             ]
 
             return links.map((link) =>
-                  <img key={link.path} src={`/icons/${link.path}`} alt={link.url} className="w-[35px] mx-2 cursor-pointer" onClick={() => window.location.href = link.url} />
+                  <Image key={link.path} width={50} height={50} src={`/icons/${link.path}`} alt={link.url} className="w-[35px] mx-2 cursor-pointer" onClick={() => window.location.href = link.url} />
             )
       }
       return (
