@@ -1,5 +1,4 @@
-import Image from 'next/image'
-import { Biolinks } from './biolinks'
+import { Biolinks } from './Biolinks'
 
 export default function Home() {
  
