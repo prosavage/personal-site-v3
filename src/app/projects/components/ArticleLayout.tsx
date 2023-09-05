@@ -4,9 +4,10 @@ interface ArticleLayoutProps {
       children: React.ReactNode
       title: string
       tags: string[]
+      dateStr: string
 }
 
-export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, tags }) => {
+export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, tags, dateStr }) => {
       return (
             <div className="max-w-7xl">
                   <p className="text-4xl md:text-6xl font-semibold">{title}</p>
@@ -18,6 +19,7 @@ export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, t
                         ))}
                   </div>
                   <img src={"/hero-seperator.svg"} alt={"hero-seperator-border"} className={"w-full h-[4px] my-2"} />
+                  <p className="my-2 font-medium text-lg md:text-xl">Posted on {dateStr}</p>
                   <div className="prose prose-slate md:prose-2xl lg:max-w-prose">
                         {children}
                   </div>

@@ -1,20 +1,72 @@
 import {ArticleImage} from "./../components/ArticleImage.tsx"
 
-In 2021, I embarked on an Ethereum mining venture using my assembly of 6 RTX 3080s, through a cryptocurrency mining pool known as Flexpool.io. During this period, I fostered connections with several individuals in Flexpool's Discord community who were keen on mining an emerging alt-coin named Ergo. However, we were confronted with a significant obstacle: the absence of established software to kickstart Ergo mining.
+In 2021, I embarked on an Ethereum mining venture using my assembly of 6 RTX 3080s, through a cryptocurrency mining pool known as Flexpool.io. During this period, I fostered connections with several individuals in Flexpool's Discord community who were keen on mining an emerging alt-coin named Ergo. However, we were confronted with a significant obstacle: the absence of established software to kickstart Ergo mining. Read further to learn about my journey of creating this service from scratch, it eventually led to a job at [Flexpool.io](https://flexpool.io)!
 
 ### Embarking on the Journey of Developing a Cryptocurrency Mining Pool from Scratch
+
+There was no existing guide/material on starting a cryptocurrency mining pool. One of the biggest names in the industry told me:
+```
+This is equivalent to starting a bank or a telecommunication company, etc.
+No guides whatsoever 
+```
 The initial phase necessitated the development of a foundational component - a stratum server. This server acts as the central hub, facilitating direct communication with the GPUs while validating the results of their computation. Additionally, it handles the distribution of tasks to the miners, while monitoring their contribution compared to everyone else.
 
-To appreciate the intricacies involved, let's first delve into the mechanics of cryptocurrency mining. Essentially, miners are responsible for generating new blocks in a blockchain, which is contingent upon identifying a valid key – a process characterized by trial and error involving multiple keys. This task is well-suited for GPUs given their proficiency in executing parallelized tasks at an astonishing speed, significantly outpacing CPUs in generating millions of hash attempts per second.
+To appreciate the intricacies involved, let's first delve into the mechanics of cryptocurrency mining. Essentially, miners are responsible for generating new blocks in a blockchain, which is contingent upon identifying a valid key - a process characterized by trial and error involving multiple keys. This task is well-suited for GPUs given their proficiency in executing parallelized tasks at an astonishing speed, significantly outpacing CPUs in generating millions of hash attempts per second.
 
-These sought-after keys, referred to as nonces (numbers utilized once), are dispensed to GPUs within a work package containing a specific nonce range to explore. A nonce is valid when it identifies a key that results in a hash with a numerical value sufficient to create a new block. This threshold is termed as the difficulty, which undergoes periodic adjustments by the network to maintain a steady block generation pace. The fluctuation in difficulty levels, dictated by the recent block discovery rate, either expands or contracts the search space for valid keys, thereby achieving a targeted block discovery frequency to adjust for new miners or technological advancements bringing leaps in compute capacity.
+These sought-after keys, referred to as nonces (numbers utilized once), are dispensed to GPUs within a work package containing a specific nonce range to explore. A nonce is valid when it identifies a key that results in a hash with a numerical value sufficient to create a new block. This threshold is termed as the difficulty, which undergoes periodic adjustments by the network to maintain a steady block generation pace. The fluctuation in difficulty levels, dictated by the recent block discovery rate, either expands or contracts the search space for valid keys, thereby achieving a targeted block discovery frequency. This allows the network to adjust for new miners or technological advancements bringing leaps in compute capacity.
 
+
+### How Stratum Server Works:
 <ArticleImage src="/article/enigmapool/stratum-server-communication-breakdown.png"/>
 
-#### A Detailed Overview:
 #### Cryptocurrency Mining Rig ↔ Stratum Server
 - **New Work:** With every notification of a new block from the Ergo Full Node, the stratum server crafts a fresh work package for the miner. This package, created through the precomputation of several values using block information, is then transmitted to the cryptocurrency mining rig.
 - **Valid Nonces:** The GPUs undertake the critical role of identifying a valid *key* capable of generating a hash that meets the numerical threshold necessary for block creation.
 
 #### Ergo Full Node ↔ Stratum Server
-- **New Blocks & Transactions:** Serving as our lifeline to the Ergo blockchain, the Ergo Full Node updates the stratum server regarding the inception of new blocks and transactions within the blockchain.
+- **New Blocks & Transactions:** Serving as our lifeline to the Ergo blockchain, the Ergo Full Node updates the stratum server regarding the inception of new blocks and transactions within the blockchain. A new work package is generated if a new block is discovered, or if a transaction is added to the mempool.
+
+- **Valid New Blocks:** The Ergo Full Node is polled periodically, and any new blocks are broadcast as work packages to all connected miners.
+
+### Creating The Stratum Server
+The stratum server is responsible for communication between the GPUs and the Ergo blockchain. It handles the responsibility of dispersing work packages to the GPUs, in addition to validating the submissions returned by the GPUs. It is the first step to creating a mining pool.
+
+#### Deciphering the Stratum Protocol
+Unfortunately, there is no official documentation highlighting the nuances of the Ergo stratum protocol. This resulted in me to undergoing the meticulous task of reverse-engineering the protocol. Leveraging the capabilities of [WireShark](https://www.wireshark.org/), I scrutinized the TCP communication dump between a miner and an existing pool, capturing data that would guide my development process. The stratum protocol operates on a JSON-RPC foundation, adhering to a request-response communication pattern. 
+
+This phase of the project presented a considerable challenge - the data extracted was devoid of labels, leaving me to decipher the significance of each field in the work package dispatched to my GPU. Furthermore, I had to figure out how to calculate these data points, which is a bit complex when you have barely any idea on how blockchain mining concepts work.
+
+Once I had a grasp of the protocol, I began the development of the stratum server. I utilized [TypeScript](https://www.typescriptlang.org/) for this project, which probably wasn't the best choice, but was the language I was most comfortable with at the time. The stratum server was designed to be modular, allowing for the addition of new algorithms and cryptocurrencies with minimal effort. This was achieved through the creation of a generic stratum server that could be extended to support any algorithm by using generics. 
+
+The lifecycle of a stratum server & miner is as follows: <br/>
+- Miner connects to the stratum server:
+      - The miner sends a `mining.subscribe` request to the stratum server, which responds with a `mining.notify` response containing the initial work package.
+      - The miner sends a `mining.authorize` request to the stratum server, which responds and acknowledges the authorization and validity of the address.
+- Miner begins mining:
+      - The miner sends a `mining.submit` request to the stratum server, which responds and notifies the miner of the validity of the submission.
+      - If the miner submits a nonce that is a valid block, the stratum server sends a `mining.notify` response to the miner, containing a new work package for the next block. It also notifies all of the other miners connected to the stratum server of the new block.
+
+#### Communication between the Stratum Server and the Ergo Full Node
+The stratum server communicates with the Ergo Full Node through the Ergo Node REST API. The stratum server utilizes the Ergo Node API to retrieve the latest block information, as well as to broadcast newly discovered blocks to the Ergo Full Node. Since the API has no subsciption mechanism, the stratum server polls the API at a regular interval to check for new blocks mined by other people. If a new block is found, the stratum server computes a new work package and broadcasts the work to all of the miners connected to the stratum server.
+
+#### Calculating Miner Rewards
+You might be wondering how the stratum server can calculate how much each miner should be paid each time a block is found.
+This is a tricky problem, since finding blocks is an extremely rare event, which is why most people mine on a pool. You cannot simply divide the block reward by the number of miners, since miners can join and leave at any time. Miners can also have varying amounts of computational power. The solution to this problem is to use a concept known as *shares*.
+
+ A **share** is a valid nonce that isn't quite a block, but is still pretty close. The stratum server informs the miner of the current *pool* difficulty, which is different from a *network* difficulty. The pool difficulty is generally much easier to meet versus the network difficulty. So if a miner finds a nonce that is valid for the pool difficulty, it just sends it to the stratum server. The stratum server runs the same nonce through the hashing algorithm to verify the validity. If the result meets the pool difficulty, the miner is rewarded with a share. The miner is then paid a fraction of the block reward based on the number of shares they have submitted. This is known as a *pay-per-share* (PPS) system. This is a very fair system because the miner is paid for the work they have done, regardless of whether or not they find a block. It also pays miners fairly based on their computational power, since miners with more computational power will find more shares.
+
+After all of this was implemented, I had a working stratum server! I was able to connect my GPUs to the stratum server and start mining Ergo. However, there was still one problem - I was the only one mining on my stratum server. I needed to create a website to allow other people to connect to my stratum server and start mining. I also needed accounting software to handle paying rewards, collection statistics, and then expose data through an API. Then I needed a website to expose all of this data.
+
+
+### Building Everything Else
+Next, I had to design and develop all the software to deploy a mining pool. This included a website, cron jobs, and a backend API. I decided to use [React](https://reactjs.org/) for the website, [Express.js](https://expressjs.com/) for the backend API, and [MongoDB](https://www.mongodb.com/) for the database. I also used [TypeScript](https://www.typescriptlang.org/) for all of these projects. I also used [Docker](https://www.docker.com/) to containerize all of the services, which made it easy to deploy everything to a server. Along with [BullMQ](https://docs.bullmq.io/) as a share cache.
+
+#### Architecture Breakdown
+<ArticleImage src="/article/enigmapool/architecture-breakdown.png"/>
+
+- **HAProxy & Stratum Servers:** The load balancer for the stratum servers. It routes traffic using round robin to the stratum servers. HAProxy also handles SSL termination, which is required since the stratum protocol is over a bidirectional TCP socket, which can also use SSL. Since we don't need SSL for the last step, we can terminate it at the load balancer. Multiple stratum servers help divide the load of all the users but are mainly present to provide redundancy in case one of the stratum server's machine breaks down.
+- **BullMQ** - BullMQ is a message queue software, it is present as an intermediary layer which periodically submits shares to MongoDB. MongoDB doesn't like being spammed with individual write requests, so BullMQ can write them in bulk.
+It also allows for failed writes, which can happen if MongoDB is down. BullMQ will retry the failed writes later. This is important because we don't want to lose any shares or our users cannot be paid. BullMQ also persists the queue to disk, so if it crashes, no data will be lost.
+- **HTTP Load Balancer & Ergo Full Nodes:** The load balancer uses custom health checks to ensure the Ergo Full Nodes are in sync with the rest of the blockchain. The Ergo Full Node isn't a software written by me, can be finicky, and randomly stop syncing with the blockchain. The load balancer will detect this and stop routing traffic to the node until it is back in sync. It will also be able to detect if a node's machine breaks down, and stop routing traffic.
+- **REST API & NGINX & Redis Cache:** The REST API exposes data stored in MongoDB and some of the precomputed data in Redis. The CRON Job Runner periodically runs jobs that use more complicated MongoDB Aggregation Pipelines to compute data that is published into Redis. NGINX handles SSL termination from Cloudflare and handles load balancing between the REST API servers.
+- **CloudFlare:** CloudFlare is a CDN that provides DDoS protection, caching, and SSL termination. I use it to protect the website and API from DDoS attacks, as well as to cache the API to reduce load on the server.
