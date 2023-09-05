@@ -19,7 +19,7 @@ These sought-after keys, referred to as nonces (numbers utilized once), are disp
 
 
 ### How Stratum Server Works:
-<ArticleImage src="/article/enigmapool/stratum-server-communication-breakdown.png"/>
+<ArticleImage src="/article/enigmapool/stratum-server-communication-breakdown.png" alt={"stratum server communication breakdown"}/>
 
 #### Cryptocurrency Mining Rig ↔ Stratum Server
 - **New Work:** With every notification of a new block from the Ergo Full Node, the stratum server crafts a fresh work package for the miner. This package, created through the precomputation of several values using block information, is then transmitted to the cryptocurrency mining rig.
@@ -69,7 +69,7 @@ I opted to utilize [React](https://reactjs.org/) to build the website, while dep
 I built the website using [NextJS](https://nextjs.org/) and deployed it on [Vercel](https://vercel.com/). Which automatically deploys my code, and uses edge-cdns to ensure my website is located close to all possible users.
 
 #### An Insight into the Architecture
-<ArticleImage src="/article/enigmapool/architecture-breakdown.png"/>
+<ArticleImage src="/article/enigmapool/architecture-breakdown.png" alt="architecture breakdown"/>
 
 - **HAProxy & Stratum Servers:** Functioning as the stratum servers' load balancer, the HAProxy facilitates the efficient distribution of traffic, adopting a round-robin approach to channel connections to various stratum servers. It also manages SSL termination - a optional feature in bidirectional TCP sockets of the stratum protocol. Since SSL not required for getting from HAProxy to Stratum Server, it is terminated at the load balancer level. Additionally, the presence of multiple stratum servers not only distributes user load evenly but serves as a redundancy measure, ensuring continuity in the event of a server malfunction.
   
