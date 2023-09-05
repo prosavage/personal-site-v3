@@ -21,7 +21,7 @@ export const NotableProjectEntry: React.FC<NotableProjectProps> = ({
             >
                   <p className="text-xl underline font-semibold group-hover:decoration-sky-500 ease-in-out duration-200">{title}</p>
                   {children}
-                  <ArrowRight className={"w-6 h-6 group-hover:text-sky-500 self-end ease-in-out duration-200 group-hover:animate-[wiggle_1s_ease-in-out_infinite]"} />
+                  <ArrowRight className={"w-6 h-6 group-hover:text-sky-500 self-end ease-in-out duration-200 group-hover:animate-[bounceRight_1s_ease-in-out_infinite]"} />
             </div>
       );
 }

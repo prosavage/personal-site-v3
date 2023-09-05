@@ -18,13 +18,13 @@ const config: Config = {
         "4xl": "3.5rem",
       },
       keyframes: {
-        wiggle: {
-          '0%, 100%': { transform: 'rotate(-6deg)' },
-          '50%': { transform: 'rotate(6deg)' },
+        bounceRight: {
+          '0%, 100%': { transform: 'translate(3px)' },
+          '50%': { transform: 'translate(-3px)' },
         }
       },
       animation: {
-        wiggle: 'wiggle 1s ease-in-out infinite',
+        bounceRight: 'wiggle 1s ease-in-out infinite',
       }
     },
 

@@ -1,6 +1,5 @@
 import React from "react"
 import { NotableProjectEntry } from "../components/notable-projects/NotableProjectEntry";
-import { Link } from "@/components/Link";
 
 interface NotableProjectsProps {
 
