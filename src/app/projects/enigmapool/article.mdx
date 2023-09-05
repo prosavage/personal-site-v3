@@ -7,10 +7,10 @@ In 2021, I embarked on an Ethereum mining venture using my cryptocurrency mining
 ### Embarking on the Journey of Developing a Cryptocurrency Mining Pool from Scratch
 
 There was no existing guide/material on starting a cryptocurrency mining pool. One of the biggest names in the industry told me:
-```
-This is equivalent to starting a bank or a telecommunication company, etc.
+
+> This is equivalent to starting a bank or a telecommunication company, etc.
 No guides whatsoever 
-```
+
 The initial phase necessitated the development of a foundational component - a stratum server. This server acts as the central hub, facilitating direct communication with the GPUs while validating the results of their computation. Additionally, it handles the distribution of tasks to the miners, while monitoring their contribution compared to everyone else.
 
 To appreciate the intricacies involved, let's first delve into the mechanics of cryptocurrency mining. Essentially, miners are responsible for generating new blocks in a blockchain, which is contingent upon identifying a valid key - a process characterized by trial and error involving multiple keys. This task is well-suited for GPUs given their proficiency in executing parallelized tasks at an astonishing speed, significantly outpacing CPUs in generating millions of hash attempts per second.
