@@ -1,12 +1,12 @@
-import { Hero } from "./Hero";
+import { Hero } from "./sections/Hero";
+import { NotableProjects } from "./sections/NotableProjects";
 
 export default function Home() {
 
   return (
-    <main className="flex min-h-screen flex-col justify-center p-12 md:p-24 items-center">
       <div className="max-w-4xl">
         <Hero />
+        <NotableProjects />
       </div>
-    </main>
   )
 }

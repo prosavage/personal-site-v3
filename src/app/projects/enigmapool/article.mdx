@@ -1,0 +1,20 @@
+import {ArticleImage} from "./../components/ArticleImage.tsx"
+
+In 2021, I embarked on an Ethereum mining venture using my assembly of 6 RTX 3080s, through a cryptocurrency mining pool known as Flexpool.io. During this period, I fostered connections with several individuals in Flexpool's Discord community who were keen on mining an emerging alt-coin named Ergo. However, we were confronted with a significant obstacle: the absence of established software to kickstart Ergo mining.
+
+### Embarking on the Journey of Developing a Cryptocurrency Mining Pool from Scratch
+The initial phase necessitated the development of a foundational component - a stratum server. This server acts as the central hub, facilitating direct communication with the GPUs while validating the results of their computation. Additionally, it handles the distribution of tasks to the miners, while monitoring their contribution compared to everyone else.
+
+To appreciate the intricacies involved, let's first delve into the mechanics of cryptocurrency mining. Essentially, miners are responsible for generating new blocks in a blockchain, which is contingent upon identifying a valid key – a process characterized by trial and error involving multiple keys. This task is well-suited for GPUs given their proficiency in executing parallelized tasks at an astonishing speed, significantly outpacing CPUs in generating millions of hash attempts per second.
+
+These sought-after keys, referred to as nonces (numbers utilized once), are dispensed to GPUs within a work package containing a specific nonce range to explore. A nonce is valid when it identifies a key that results in a hash with a numerical value sufficient to create a new block. This threshold is termed as the difficulty, which undergoes periodic adjustments by the network to maintain a steady block generation pace. The fluctuation in difficulty levels, dictated by the recent block discovery rate, either expands or contracts the search space for valid keys, thereby achieving a targeted block discovery frequency to adjust for new miners or technological advancements bringing leaps in compute capacity.
+
+<ArticleImage src="/article/enigmapool/stratum-server-communication-breakdown.png"/>
+
+#### A Detailed Overview:
+#### Cryptocurrency Mining Rig ↔ Stratum Server
+- **New Work:** With every notification of a new block from the Ergo Full Node, the stratum server crafts a fresh work package for the miner. This package, created through the precomputation of several values using block information, is then transmitted to the cryptocurrency mining rig.
+- **Valid Nonces:** The GPUs undertake the critical role of identifying a valid *key* capable of generating a hash that meets the numerical threshold necessary for block creation.
+
+#### Ergo Full Node ↔ Stratum Server
+- **New Blocks & Transactions:** Serving as our lifeline to the Ergo blockchain, the Ergo Full Node updates the stratum server regarding the inception of new blocks and transactions within the blockchain.
