@@ -14,7 +14,7 @@ export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, t
                   <p className="text-4xl md:text-6xl font-semibold">{title}</p>
                   <div className="flex flex-row flex-wrap align-center my-4">
                         {tags.map((tag) => (
-                              <span key={tag} className="bg-blue-100 text-blue-800 text-sm font-medium mr-2 mb-1 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+                              <span key={tag} className="bg-sky-600 text-white text-sm font-medium mr-2 mb-1 px-2.5 py-0.5 rounded ">
                                     {tag}
                               </span>
                         ))}
