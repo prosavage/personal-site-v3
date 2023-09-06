@@ -14,7 +14,7 @@ export const NotableProjects: React.FC<NotableProjectsProps> = ({ }) => {
                         <p>In this landmark project, I developed a cryptocurrency mining pool that enables individual miners to combine their computational resources. This collective power not only increases their chances of mining blocks but also ensures more frequent rewards, distributed according to each miner&apos;s contribution.</p>
                   </NotableProjectEntry>
                   <NotableProjectEntry title={"SavageLabs"} href={"/projects/savagelabs"}>
-                  <p>Founded by me, SavageLabs served as a burgeoning development organization that housed an array of Minecraft plugins I personally created. These plugins elevated the gaming experiences for over 300,000 concurrent players, bringing innovation and excitement to the Minecraft community.</p>
+                  <p>SavageLabs served as a development organization that housed an array of Minecraft plugins I created. These plugins elevated the gaming experiences for over 300,000 concurrent players, bringing innovation and excitement to the Minecraft community.</p>
                   </NotableProjectEntry>
             </div>
       );
