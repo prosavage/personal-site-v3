@@ -24,7 +24,7 @@ export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, t
                         <Link href={"/"}><p className="my-2 font-medium text-lg md:text-xl">Home</p></Link>
                         <p className="my-2 font-medium text-lg md:text-xl">Posted on {dateStr}</p>
                   </div>
-                  <div className="prose prose-slate sm:prose-xl md:prose-2xl lg:max-w-prose">
+                  <div className="my-4 prose prose-slate sm:prose-xl md:prose-2xl lg:max-w-prose">
                         {children}
                   </div>
                   <img src={"/hero-seperator.svg"} alt={"hero-seperator-border"} className={"w-full h-[4px] my-2"} />
