@@ -2,6 +2,7 @@ import React, { Fragment } from "react"
 import { Biolinks } from "../components/hero/Biolinks";
 import Image from "next/image"
 import { Link } from "@/components/Link";
+import { Separator } from "../components/Separator";
 
 interface HeroProps {
 
@@ -21,7 +22,7 @@ export const Hero: React.FC<HeroProps> = ({ }) => {
                               <Image src={"/hero.png"} alt={"Naman's Profile Picture"} width={2000} height={2000} className="max-w-xs rounded-4xl" />
                         </div>
                   </div>
-                  <img src={"/hero-seperator.svg"} alt={"hero-seperator-border"} className={"w-full h-[4px] mt-16"} />
+                  <Separator className="mt-16"/>
             </Fragment>
       );
 }

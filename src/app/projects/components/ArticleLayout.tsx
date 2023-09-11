@@ -1,3 +1,4 @@
+import { Separator } from "@/app/components/Separator"
 import { Link } from "@/components/Link"
 import React from "react"
 
@@ -19,7 +20,7 @@ export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, t
                               </span>
                         ))}
                   </div>
-                  <img src={"/hero-seperator.svg"} alt={"hero-seperator-border"} className={"w-full h-[4px] my-2"} />
+                  <Separator className="my-2"/>
                   <div className="flex flex-row align-center justify-between">
                         <Link href={"/"}><p className="my-2 font-medium text-lg md:text-xl">Home</p></Link>
                         <p className="my-2 font-medium text-lg md:text-xl">Posted on {dateStr}</p>
@@ -27,7 +28,7 @@ export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, t
                   <div className="my-4 prose prose-slate sm:prose md:prose-xl lg:max-w-prose">
                         {children}
                   </div>
-                  <img src={"/hero-seperator.svg"} alt={"hero-seperator-border"} className={"w-full h-[4px] my-2"} />
+                  <Separator className="my-2"/>
                   <div className="flex flex-row align-center justify-between">
                         <Link href={"/"}><p className="my-2 font-medium text-lg md:text-xl">Home</p></Link>
                         <p className="my-2 font-medium text-lg md:text-xl">Posted on {dateStr}</p>
