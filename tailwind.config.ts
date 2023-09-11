@@ -24,7 +24,7 @@ const config: Config = {
         }
       },
       animation: {
-        bounceRight: 'wiggle 1s ease-in-out infinite',
+        bounceRightAnim: 'bounceRight 1s ease-in-out infinite',
       }
     },
 
