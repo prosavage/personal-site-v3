@@ -1,8 +1,9 @@
 import React, { Fragment } from "react"
-import { Biolinks } from "../components/hero/Biolinks";
+import { Biolinks } from "../../components/root/hero/Biolinks";
 import Image from "next/image"
 import { Link } from "@/components/Link";
-import { Separator } from "../components/Separator";
+import { Separator } from "@/components/Separator";
+
 
 interface HeroProps {
 

@@ -1,5 +1,5 @@
-import { Separator } from "@/app/components/Separator"
 import { Link } from "@/components/Link"
+import { Separator } from "@/components/Separator"
 import React from "react"
 
 interface ArticleLayoutProps {

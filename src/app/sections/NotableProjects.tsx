@@ -1,6 +1,5 @@
+import { NotableProjectEntry } from "@/components/root/notable-projects/NotableProjectEntry";
 import React from "react"
-import { NotableProjectEntry } from "../components/notable-projects/NotableProjectEntry";
-import { ArticleImage } from "../projects/components/ArticleImage";
 
 interface NotableProjectsProps {
 
