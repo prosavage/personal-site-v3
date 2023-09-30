@@ -21,7 +21,7 @@ export const OtherProjects: React.FC<OtherProjectsProps> = ({ }) => {
                   title: "Marketplace Demo",
                   description: <React.Fragment>
                         <p>I wrote this software to serve as a hub for my minecraft plugins. The software allowed my users to purchase, download, review, and get support for plugins.
-                              It was built using <Link href={"https://typescriptlang.org"}>TypeScript</Link>, <Link href={"https://react.dev/"}>React</Link>, and <Link href={"https://next.dev"}>Next.js</Link> on the frontend.
+                              It was built using <Link href={"https://typescriptlang.org"}>TypeScript</Link>, <Link href={"https://react.dev/"}>React</Link>, and <Link href={"https://nextjs.org"}>Next.js</Link> on the frontend.
                               For the backend, I used <Link href={"https://typescriptlang.org"}>TypeScript</Link> again, <Link href={"https://expressjs.com/"}>Express</Link>, and <Link href={"https://www.mongodb.com/"}>MongoDB</Link>.
                               Using the same programming language across both the frontend and backend allowed me to share code between the two, which was a huge productivity boost. I could share types easily and even share some utility functions for things like validation.
                               Which can be a really big deal when you are building so many endpoints, and you don&apos;t want discrepancies between the frontend and backend&apos;s validation. I also used <Link href={"https://www.docker.com/"}>Docker</Link> to containerize the application and <Link href={"https://www.nginx.com/"}>Nginx</Link> to serve the frontend. I used <Link href={"https://bunny.net"}>BunnyCDN</Link>
