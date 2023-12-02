@@ -22,7 +22,7 @@ export const NotableProjectEntry: React.FC<NotableProjectProps> = ({
                 {children}
                 <div className="flex flex-row justify-end w-full">
                     <p className="mr-1 hidden group-hover:block group-hover:text-sky-500 ease-in-out duration-200">Learn More</p>
-                    <ArrowRight className={`w-6 h-6 group-hover:text-sky-500 self-end ease-in-out duration-200 group-hover:animate-[bounceRight_1s_ease-in-out_infinite]`} />
+                    <ArrowRight className={"w-6 h-6 group-hover:text-sky-500 self-end ease-in-out duration-200 group-hover:animate-[bounceRight_1s_ease-in-out_infinite]"} />
                 </div>
             </div>
         </Link>

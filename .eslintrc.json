@@ -2,6 +2,6 @@
   "extends": "next/core-web-vitals",
   "rules": {
     "semi": ["error", "always"],
-    "quotes": ["error", "backtick"]
+    "quotes": ["error", "double"]
   }
 }

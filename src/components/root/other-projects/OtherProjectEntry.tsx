@@ -21,8 +21,8 @@ export const OtherProjectEntry: React.FC<OtherProjectEntryProps> = ({ src, githu
                         <div className="flex flex-row justify-between items-center my-2">
                               <p className="text-lg md:text-xl font-bold underline">{title}</p>
                               <div className="flex flex-row items-center">
-                                    <Button onClick={() => window.location.href = src} icon={<HiOutlineGlobeAlt />} className={`mr-1`}> Website</Button>
-                                    {github && <Button onClick={() => window.location.href = github} icon={<VscGithub />} className={`ml-1`}>Github</Button>}
+                                    <Button onClick={() => window.location.href = src} icon={<HiOutlineGlobeAlt />} className={"mr-1"}> Website</Button>
+                                    {github && <Button onClick={() => window.location.href = github} icon={<VscGithub />} className={"ml-1"}>Github</Button>}
                               </div>
                         </div>
                         <div>

@@ -25,7 +25,7 @@ export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, t
                   </div>
                   <Separator className="my-2"/>
                   <div className="flex flex-row align-center justify-between">
-                        <TextLink href={`/`}><p className="my-2 font-medium text-lg md:text-xl">Home</p></TextLink>
+                        <TextLink href={"/"}><p className="my-2 font-medium text-lg md:text-xl">Home</p></TextLink>
                         <p className="my-2 font-medium text-lg md:text-xl">Posted on {dateStr}</p>
                   </div>
                   <div className="my-4 prose prose-slate md:prose-xl lg:max-w-prose">
@@ -33,7 +33,7 @@ export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, t
                   </div>
                   <Separator className="my-2"/>
                   <div className="flex flex-row align-center justify-between">
-                        <TextLink href={`/`}><p className="my-2 font-medium text-lg md:text-xl">Home</p></TextLink>
+                        <TextLink href={"/"}><p className="my-2 font-medium text-lg md:text-xl">Home</p></TextLink>
                         <p className="my-2 font-medium text-lg md:text-xl">Posted on {dateStr}</p>
                   </div>
             </div>

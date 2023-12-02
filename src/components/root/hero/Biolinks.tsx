@@ -11,16 +11,16 @@ export const Biolinks: React.FC<BiolinksProps> = ({ }) => {
     const renderLinks = () => {
         const links = [
             {
-                "path": `github.svg`,
-                "url": `https://github.com/prosavage`,
+                "path": "github.svg",
+                "url": "https://github.com/prosavage",
             },
             {
-                "path": `linkedin.svg`,
-                "url": `https://www.linkedin.com/in/prosavage/`,
+                "path": "linkedin.svg",
+                "url": "https://www.linkedin.com/in/prosavage/",
             },
             {
-                "path": `instagram.svg`,
-                "url": `https://www.instagram.com/thecommondenamanator/`,
+                "path": "instagram.svg",
+                "url": "https://www.instagram.com/thecommondenamanator/",
             }
         ];
 
