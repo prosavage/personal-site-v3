@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 interface HeroSeparatorProps {
       className?: string
@@ -6,6 +6,7 @@ interface HeroSeparatorProps {
 
 export const Separator: React.FC<HeroSeparatorProps> = ({ className}) => {
       return (
-            <img src={"/hero-seperator.svg"} alt={"hero-seperator-border"} className={"w-full h-[4px] " + className} />
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={`/hero-seperator.svg`} alt={`hero-seperator-border`} className={`w-full h-[4px] ` + className} />
       );
-}
+};

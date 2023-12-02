@@ -1,5 +1,5 @@
 import { Separator } from "@/components/Separator";
-import React, { Fragment } from "react"
+import React, { Fragment } from "react";
 
 
 interface StatsProps {
@@ -16,4 +16,4 @@ export const Stats: React.FC<StatsProps> = ({ }) => {
                   <Separator className="mt-16" />
             </Fragment>
       );
-}
+};

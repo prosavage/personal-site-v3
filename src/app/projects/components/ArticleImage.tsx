@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react"
+import React from "react";
 
 interface ArticleImageProps {
       src: string
@@ -15,8 +15,8 @@ export const ArticleImage: React.FC<ArticleImageProps> = ({ src, alt, className 
             width={0}
             height={0}
             sizes="100vw"
-            style={{ width: '100%', height: 'auto' }} // optional
-            className={"rounded-lg border-2 border-sky-500 " + className}
+            style={{ width: `100%`, height: `auto` }} // optional
+            className={`rounded-lg border-2 border-sky-500 ` + className}
           />
       );
-}
+};

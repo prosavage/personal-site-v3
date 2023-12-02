@@ -1,6 +1,7 @@
-import { Link } from "@/components/Link"
-import { Separator } from "@/components/Separator"
-import React from "react"
+import { TextLink } from "@/components/TextLink";
+import { Separator } from "@/components/Separator";
+import React from "react";
+import readingTime from "reading-time";
 
 interface ArticleLayoutProps {
       children: React.ReactNode
@@ -10,6 +11,8 @@ interface ArticleLayoutProps {
 }
 
 export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, tags, dateStr }) => {
+
+
       return (
             <div className="max-w-7xl">
                   <p className="text-4xl md:text-6xl font-semibold">{title}</p>
@@ -22,7 +25,7 @@ export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, t
                   </div>
                   <Separator className="my-2"/>
                   <div className="flex flex-row align-center justify-between">
-                        <Link href={"/"}><p className="my-2 font-medium text-lg md:text-xl">Home</p></Link>
+                        <TextLink href={`/`}><p className="my-2 font-medium text-lg md:text-xl">Home</p></TextLink>
                         <p className="my-2 font-medium text-lg md:text-xl">Posted on {dateStr}</p>
                   </div>
                   <div className="my-4 prose prose-slate md:prose-xl lg:max-w-prose">
@@ -30,9 +33,9 @@ export const ArticleLayout: React.FC<ArticleLayoutProps> = ({ title, children, t
                   </div>
                   <Separator className="my-2"/>
                   <div className="flex flex-row align-center justify-between">
-                        <Link href={"/"}><p className="my-2 font-medium text-lg md:text-xl">Home</p></Link>
+                        <TextLink href={`/`}><p className="my-2 font-medium text-lg md:text-xl">Home</p></TextLink>
                         <p className="my-2 font-medium text-lg md:text-xl">Posted on {dateStr}</p>
                   </div>
             </div>
       );
-}
+};

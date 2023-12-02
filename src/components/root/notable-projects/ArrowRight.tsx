@@ -1,4 +1,4 @@
-import React from "react"
+import React from "react";
 
 interface ArrowRightProps {
       className?: string
@@ -12,4 +12,4 @@ export const ArrowRight: React.FC<ArrowRightProps> = ({ className }) => {
 
 
       );
-}
+};
