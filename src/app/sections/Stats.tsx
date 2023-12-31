@@ -20,7 +20,6 @@ export const Stats: React.FC<StatsProps> = async ({ }) => {
     
     return (
         <div className="mt-8">
-            <p className="h-10 text-lg md:text-xl font-semibold">My contributions on GitHub</p>
             <ContributionChart allContributions={contributions}  />
             <Separator className="mt-16" />
         </div>

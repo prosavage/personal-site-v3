@@ -44,31 +44,32 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
     };
 
     return (
-        // Setting a w-96 width allows it to overflow the parent div and trigger scroll, its a hack but it works, not sure how to make it scroll on its own.
-        <div className="flex flex-col items-start">
-            <div className="flex w-full">
-                <DaysOfWeek />
-                <div className="flex flex-col w-full flex-wrap">
-                    <ContributionChartNodes year={year} weeks={weeks} />
-                    <div className="my-2 flex flex-row item-center justify-between">
-                        <Legend />
-                        <div className="hidden md:flex flex-row items-center flex-wrap">
-                            {getYearsBetween().map((yearIdx) => {
-                                return (
-                                    <Button
-                                        key={yearIdx}
-                                        className={`text-sm ml-4 cursor-pointer border-none hover:border-none hover:text-sky-500 ${year === yearIdx ? "underline" : ""}`}
-                                        onClick={() => setYear(yearIdx)}
-                                    >
-                                        {yearIdx}
-                                    </Button>
-                                );
-                            })}
+        <>
+            <p className="h-10 text-lg md:text-xl font-semibold">GitHub Statistics in {year}</p>
+            <div className="flex flex-col items-start">
+                <div className="flex w-full">
+                    <DaysOfWeek />
+                    <div className="flex flex-col w-full flex-wrap">
+                        <ContributionChartNodes year={year} weeks={weeks} />
+                        <div className="my-2 flex flex-row item-center justify-between">
+                            <Legend />
+                            <div className="hidden md:flex flex-row items-center justify-center flex-wrap">
+                                {getYearsBetween().map((yearIdx) => {
+                                    return (
+                                        <Button
+                                            key={yearIdx}
+                                            className={`text-sm ml-4 cursor-pointer border-none hover:border-none hover:text-sky-500 ${year === yearIdx ? "underline" : ""}`}
+                                            onClick={() => setYear(yearIdx)}
+                                        >
+                                            {yearIdx}
+                                        </Button>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
+        </>
     );
 };
