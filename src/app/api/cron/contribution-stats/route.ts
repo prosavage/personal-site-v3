@@ -8,7 +8,7 @@ export async function GET() {
             cache: "no-store",
         },
     );
-    
+
     const data: ContributionData = await result.json();
     const sortedContributions: Record<string, Contribution[]> = {};
 
@@ -21,9 +21,7 @@ export async function GET() {
         sortedContributions[year].push(contribution);
     }
 
-    for (const year in sortedContributions) {
-        await kv.set(`contributions-${year}`, JSON.stringify(sortedContributions[year]));
-    }
+    await kv.set("contributions", JSON.stringify(sortedContributions));
 
     return Response.json({ sortedContributions });
 }

@@ -1,27 +1,23 @@
+"use client";
 import React, { cache, useEffect } from "react";
 import { Legend } from "./Legend";
 import { Contribution } from "@/app/util/Contribution";
 import { Button } from "@/components/Button";
 import { DaysOfWeek } from "./DaysOfWeek";
 import { ContributionChartNodes } from "./ContributionChartNodes";
-import { kv } from "@vercel/kv";
 
 interface ContributionChartProps {
+    allContributions: Record<string, Contribution[]>
 }
 
-// Using cache to only refresh contributions once per hour.
-// https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#fetching-data-on-the-server-with-third-party-libraries
-export const getContributionData = cache(async (year: number) => {
-    let contributions = await kv.get<Contribution[]>(`contributions-${year}`);
-    if (!contributions) contributions = [];
-    // console.log("Fetching fresh contribution stats", new Date().toLocaleTimeString());
-    return contributions;
-});
 
-export const ContributionChart: React.FC<ContributionChartProps> = async ({  }) => {
-    const year = new Date().getFullYear();
-   
-    const contributions = await getContributionData(year);
+
+export const ContributionChart: React.FC<ContributionChartProps> = ({ allContributions }) => {
+
+    const [year, setYear] = React.useState<number>(new Date().getFullYear());
+
+
+    const contributions = allContributions[year] ?? [];
 
     // create new date object from year
     const firstDayOfYear = new Date(year, 0, 1);
@@ -56,19 +52,19 @@ export const ContributionChart: React.FC<ContributionChartProps> = async ({  }) 
                     <ContributionChartNodes year={year} weeks={weeks} />
                     <div className="my-2 flex flex-row item-center justify-between">
                         <Legend />
-                        {/* <div className="flex flex-row items-center flex-wrap">
+                        <div className="hidden md:flex flex-row items-center flex-wrap">
                             {getYearsBetween().map((yearIdx) => {
                                 return (
                                     <Button
                                         key={yearIdx}
                                         className={`text-sm ml-4 cursor-pointer border-none hover:border-none hover:text-sky-500 ${year === yearIdx ? "underline" : ""}`}
-                                        // onClick={() => setYear(yearIdx)}
+                                        onClick={() => setYear(yearIdx)}
                                     >
                                         {yearIdx}
                                     </Button>
                                 );
                             })}
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>
