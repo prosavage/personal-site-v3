@@ -1,7 +1,6 @@
 import { TextLink } from "@/components/TextLink";
 import { Separator } from "@/components/Separator";
 import React from "react";
-import readingTime from "reading-time";
 
 interface ArticleLayoutProps {
       children: React.ReactNode
