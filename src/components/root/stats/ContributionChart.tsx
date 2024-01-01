@@ -17,14 +17,14 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
     const [year, setYear] = React.useState<number>(new Date().getFullYear());
 
 
-    const contributions = allContributions[year] ?? [];
+    const contributions = [...allContributions[year]] ?? [];
 
     // create new date object from year
     const firstDayOfYear = new Date(year, 0, 1);
     const startDayOfWeek = firstDayOfYear.getDay();
 
     for (let i = 0; i < startDayOfWeek; i++) {
-        contributions.unshift({ date: "", count: 0, level: -1 });
+        contributions.unshift({ date: "", count: 0, level: -1});
     }
 
     const weeks: Contribution[][] = [];
