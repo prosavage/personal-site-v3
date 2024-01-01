@@ -24,7 +24,7 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
     const startDayOfWeek = firstDayOfYear.getDay();
 
     for (let i = 0; i < startDayOfWeek; i++) {
-        contributions.unshift({ date: "", count: 0, level: -1});
+        contributions.unshift({ date: "", count: 0, level: -1 });
     }
 
     const weeks: Contribution[][] = [];
@@ -63,18 +63,15 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
                         <ContributionChartNodes year={year} weeks={weeks} setDay={(newDay) => setDay(newDay)} />
                         <div className="my-2 flex flex-row item-center justify-between">
                             <Legend />
-                            <div className="hidden md:flex flex-row items-center justify-center flex-wrap">
-                                {getYearsBetween().map((yearIdx) => {
-                                    return (
-                                        <Button
-                                            key={yearIdx}
-                                            className={`text-sm ml-4 cursor-pointer border-none hover:border-none hover:text-sky-500 ${year === yearIdx ? "underline" : ""}`}
-                                            onClick={() => setYear(yearIdx)}
-                                        >
-                                            {yearIdx}
-                                        </Button>
-                                    );
-                                })}
+                            <div className="flex flex-row items-center justify-center flex-wrap">
+                                <select
+                                    className="text-sm ml-4 cursor-pointer border-none hover:border-none bg-transparent underline"
+                                    onChange={(e) => setYear(parseInt(e.target.value))}
+                                >
+                                    {getYearsBetween().reverse().map((yearIdx) =>
+                                        <option key={yearIdx} value={yearIdx}>{yearIdx}</option>
+                                    )}
+                                </select>
                             </div>
                         </div>
                     </div>
