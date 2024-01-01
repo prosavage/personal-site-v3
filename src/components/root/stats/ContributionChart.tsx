@@ -46,8 +46,12 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
     const [day, setDay] = React.useState<Contribution | null>(null);
 
     const daySummary = () => {
-        if (day === null) return "Hover over a day to see my contributions.";
-        const dateStr = new Date(day.date).toLocaleDateString("default", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+        // If -1 level, then its a filler block for the start of the year.
+        if (day === null || day.level === -1) return "Hover over a day to see my contributions.";
+        // JS parses the date as 1 day before, so we add 1 day to the date.
+        const dateParsed = new Date(day.date);
+        dateParsed.setDate(dateParsed.getDate() + 1);
+        const dateStr = dateParsed.toLocaleDateString("default", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
         if (day.count === 0) return `I didn't make any contributions on this ${dateStr}.`;
         return `I made ${day.count} contributions on ${dateStr}`;
     };

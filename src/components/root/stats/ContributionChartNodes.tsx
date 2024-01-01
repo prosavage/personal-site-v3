@@ -49,7 +49,7 @@ export const ContributionChartNodes: React.FC<ContributionChartNodesProps> = ({ 
                                     <div
                                         key={idx}
                                         onMouseEnter={() => setDay(day)}
-                                        className={`h-3.5 w-3.5 m-0.5 ${getColor(day.level)} group relative rounded-sm hover:border hover:border-sky-950`}>
+                                        className={`h-3.5 w-3.5 m-0.5 ${getColor(day.level)} group relative rounded-sm ${day.level !== -1 && "hover:border hover:border-sky-950"}`}>
                                         {/* {day.level !== -1 && (
                                         <div className="absolute hidden group-hover:block w-32 bg-gray-400 text-white text-xs rounded-lg p-2 -mt-14 -ml-16 z-10">
                                             {day.count} contributions on {day.date}
