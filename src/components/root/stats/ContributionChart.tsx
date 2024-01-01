@@ -69,13 +69,24 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
                             <Legend />
                             <div className="flex flex-row items-center justify-center flex-wrap">
                                 <select
-                                    className="text-sm ml-4 cursor-pointer border-none hover:border-none bg-transparent underline"
+                                    className="block lg:hidden text-sm ml-4 cursor-pointer border-none hover:border-none bg-transparent underline"
                                     onChange={(e) => setYear(parseInt(e.target.value))}
                                 >
                                     {getYearsBetween().reverse().map((yearIdx) =>
                                         <option key={yearIdx} value={yearIdx}>{yearIdx}</option>
                                     )}
                                 </select>
+                                {getYearsBetween().map((yearIdx) => {
+                                    return (
+                                        <Button
+                                            key={yearIdx}
+                                            className={`hidden lg:block text-sm ml-4 cursor-pointer border-none hover:border-none hover:text-sky-500 ${year === yearIdx ? "underline" : ""}`}
+                                            onClick={() => setYear(yearIdx)}
+                                        >
+                                            {yearIdx}
+                                        </Button>
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>

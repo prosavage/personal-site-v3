@@ -23,5 +23,7 @@ export async function GET() {
 
     await kv.set("contributions", JSON.stringify(sortedContributions));
 
+    console.log("Updated contributions cache", new Date().toTimeString());
+
     return Response.json({ sortedContributions });
 }
