@@ -4,9 +4,10 @@ import React, { useState } from "react";
 interface ContributionChartNodesProps {
     year: number
     weeks: Contribution[][]
+    setDay: (newDay: Contribution | null) => void 
 }
 
-export const ContributionChartNodes: React.FC<ContributionChartNodesProps> = ({ year, weeks }) => {
+export const ContributionChartNodes: React.FC<ContributionChartNodesProps> = ({ year, weeks, setDay }) => {
     const firstDayOfYear = new Date(year, 0, 1);
     const getMonthStartWeek = (weekNumber: number): string | null => {
         const firstDayOfWeek = new Date(year, 0, (weekNumber - 1) * 7 - firstDayOfYear.getDay() + 1);
@@ -31,20 +32,13 @@ export const ContributionChartNodes: React.FC<ContributionChartNodesProps> = ({ 
         }
     };
 
-    const [day, setDay] = useState<Contribution | null>(null);
-
-    const daySummary = () => {
-        if (day === null) return "Hover over a day to see my contributions.";
-        return `I made ${day.count} contributions on ${new Date(day.date).toLocaleDateString("default", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}`;
-    };
 
     return (
         <>
-            <p>{daySummary()}</p>
             <div className="overflow-x-scroll w-full">
                 {/* I know width 1px looks WACK, but you need to have a static width so the overflow-x-scroll triggers. Or not use flex, idk. idc. */}
                 <div className="w-1"
-                onMouseLeave={() => setDay(null)}
+                    onMouseLeave={() => setDay(null)}
                 >
                     <div className="flex">
                         {weeks.map((week, index) => (
@@ -55,8 +49,8 @@ export const ContributionChartNodes: React.FC<ContributionChartNodesProps> = ({ 
                                     <div
                                         key={idx}
                                         onMouseEnter={() => setDay(day)}
-                                        
-                                        className={`h-3.5 w-3.5 m-0.5 ${getColor(day.level)} group relative rounded-sm`}>
+
+                                        className={`h-3.5 w-3.5 m-0.5 ${getColor(day.level)} group relative rounded-sm hover:border hover:border-sky-950`}>
                                         {/* {day.level !== -1 && (
                                         <div className="absolute hidden group-hover:block w-32 bg-gray-400 text-white text-xs rounded-lg p-2 -mt-14 -ml-16 z-10">
                                             {day.count} contributions on {day.date}

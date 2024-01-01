@@ -43,14 +43,24 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
         return years;
     };
 
+    const [day, setDay] = React.useState<Contribution | null>(null);
+
+    const daySummary = () => {
+        if (day === null) return "Hover over a day to see my contributions.";
+        const dateStr = new Date(day.date).toLocaleDateString("default", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+        if (day.count === 0) return `I didn't make any contributions on this ${dateStr}.`;
+        return `I made ${day.count} contributions on ${dateStr}`;
+    };
+
     return (
         <>
             <p className="h-10 text-lg md:text-xl font-semibold">GitHub Statistics in {year}</p>
+            <p>{daySummary()}</p>
             <div className="flex flex-col items-start">
                 <div className="flex w-full">
                     <DaysOfWeek />
                     <div className="flex flex-col w-full flex-wrap">
-                        <ContributionChartNodes year={year} weeks={weeks} />
+                        <ContributionChartNodes year={year} weeks={weeks} setDay={(newDay) => setDay(newDay)} />
                         <div className="my-2 flex flex-row item-center justify-between">
                             <Legend />
                             <div className="hidden md:flex flex-row items-center justify-center flex-wrap">
