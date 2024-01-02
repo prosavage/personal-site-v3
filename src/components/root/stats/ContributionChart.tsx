@@ -54,8 +54,8 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
         const dateParsed = new Date(day.date);
         dateParsed.setDate(dateParsed.getDate() + 1);
         const dateStr = dateParsed.toLocaleDateString("default", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
-        if (day.count === 0) return `I didn't make any contributions on ${dateStr}.`;
-        return `I made ${day.count} contributions on ${dateStr}.`;
+        if (day.count === 0) return `No contributions on ${dateStr}.`;
+        return `${day.count} contributions on ${dateStr}.`;
     };
 
     const getYearStr = () => {
