@@ -22,7 +22,7 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
     let firstDayOfYear = new Date(yearForChart, 0, 1);
     if (year === "last-year") {
         firstDayOfYear = new Date(contributions[0].date);
-        // firstDayOfYear.setDate(firstDayOfYear.getDate() + 1);
+        firstDayOfYear.setDate(firstDayOfYear.getDate() + 1);
     }
 
     const startDayOfWeek = firstDayOfYear.getDay();
