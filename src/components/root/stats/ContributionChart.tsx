@@ -19,7 +19,12 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
 
     const yearForChart = year === "last-year" ? new Date().getFullYear() - 1 : parseInt(year);
     // create new date object from year
-    const firstDayOfYear = new Date(yearForChart, 0, 1);
+    let firstDayOfYear = new Date(yearForChart, 0, 1);
+    if (year === "last-year") {
+        firstDayOfYear = new Date(contributions[0].date);
+        // firstDayOfYear.setDate(firstDayOfYear.getDate() + 1);
+    }
+
     const startDayOfWeek = firstDayOfYear.getDay();
 
     for (let i = 0; i < startDayOfWeek; i++) {
