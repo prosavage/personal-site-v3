@@ -23,7 +23,7 @@ export const Hero: React.FC<HeroProps> = ({ }) => {
           <Image src={"/hero.png"} alt={"Naman's Profile Picture"} width={2000} height={2000} className="max-w-xs rounded-4xl" />
         </div>
       </div>
-      <Separator className="mt-16" />
+      <Separator  />
     </Fragment>
   );
 };

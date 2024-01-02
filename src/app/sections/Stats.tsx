@@ -22,7 +22,7 @@ export const Stats: React.FC<StatsProps> = async ({ }) => {
     return (
         <div className="mt-8">
             <ContributionChart allContributions={contributions} totals={totals}  />
-            <Separator className="mt-16" />
+            <Separator/>
         </div>
 
     );

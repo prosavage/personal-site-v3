@@ -54,8 +54,8 @@ export const OtherProjects: React.FC<OtherProjectsProps> = ({ }) => {
 
       return (
             <div className="w-full flex flex-col">
-                  <Separator className="mt-16" />
-                  <div className="flex flex-col justify-between mb-2 mt-8">
+                  <Separator />
+                  <div className="flex flex-col justify-between mb-2">
                         <p className="text-xl md:text-2xl font-bold">Project Demos</p>
                         <div className="flex flex-row mt-4">
                               <Button className={"mr-1"} icon={<HiArrowLeft />} onClick={() => setProjectIndex(Math.max(projectIndex - 1, 0))}>Prev. Project</Button>
