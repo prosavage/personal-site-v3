@@ -1,6 +1,8 @@
 import { Contribution, ContributionData } from "@/app/util/Contribution";
 import { kv } from "@vercel/kv";
 
+export const fetchCache = "force-no-store";
+
 export async function GET() {
     const result = await fetch(
         "https://github-contributions-api.jogruber.de/v4/prosavage",
