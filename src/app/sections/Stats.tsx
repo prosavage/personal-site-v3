@@ -9,11 +9,10 @@ interface StatsProps {
 // Using cache to only refresh contributions once per hour.
 // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#fetching-data-on-the-server-with-third-party-libraries
 export const getContributionData = cache(async () => {
+    const fetchOpts = { next: { revalidate: 3600 } };
     const result = await fetch(
         "https://github-contributions-api.jogruber.de/v4/prosavage",
-        {
-            cache: "no-store",
-        },
+        fetchOpts,
     );
 
     const data: ContributionData = await result.json();
@@ -36,9 +35,7 @@ export const getContributionData = cache(async () => {
 
     const resultLastYear = await fetch(
         "https://github-contributions-api.jogruber.de/v4/prosavage?y=last",
-        {
-            cache: "no-store",
-        },
+       fetchOpts,
     );
 
     const lastYearData: ContributionData = await resultLastYear.json();
