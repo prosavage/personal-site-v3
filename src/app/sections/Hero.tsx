@@ -20,7 +20,7 @@ export const Hero: React.FC<HeroProps> = ({ }) => {
           <Biolinks />
         </div>
         <div className={"hidden md:flex"}>
-          <Image src={"/hero.png"} alt={"Naman's Profile Picture"} width={2000} height={2000} className="max-w-xs rounded-4xl" />
+          <Image priority src={"/hero.png"} alt={"Naman's Profile Picture"} width={2000} height={2000} className="max-w-xs rounded-4xl" />
         </div>
       </div>
       <Separator  />
