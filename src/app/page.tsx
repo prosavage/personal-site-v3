@@ -14,7 +14,7 @@ export default function Home({}) {
             <Hero />
             <Stats />
             <NotableProjects />
-            <OtherProjects />
+            {/* <OtherProjects /> */}
         </div>
     );
 }
