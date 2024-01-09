@@ -25,8 +25,8 @@ export default function RootLayout({
                 <main className="flex min-h-screen flex-col justify-start p-2 sm:p-12 md:p-24 items-center">
                     {children}
                 </main>
-            </body>
             <SpeedInsights />
+            </body>
             <Analytics />
         </html>
     );
