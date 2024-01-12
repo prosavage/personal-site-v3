@@ -65,7 +65,7 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
 
     return (
         <>
-            <p className="h-10 text-lg md:text-xl font-semibold">{totals[year]} GitHub Contributions in {getYearStr()}.</p>
+            <p className="text-lg md:text-xl font-semibold text-wrap">{totals[year]} GitHub Contributions in {getYearStr()}.</p>
             <p>{daySummary()}</p>
             <div className="flex flex-col items-start">
                 <div className="flex w-full">
