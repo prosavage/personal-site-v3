@@ -35,7 +35,7 @@ export const ContributionChartNodes: React.FC<ContributionChartNodesProps> = ({ 
 
     return (
         <>
-            <div className="overflow-x-scroll w-full">
+            <div className="overflow-x-auto w-full">
                 {/* I know width 1px looks WACK, but you need to have a static width so the overflow-x-scroll triggers. Or not use flex, idk. idc. */}
                 <div className="w-1"
                     onMouseLeave={() => setDay(null)}
