@@ -1,13 +1,13 @@
 import { Contribution } from "@/app/util/Contribution";
-import React, { useState } from "react";
+import React from "react";
 
 interface ContributionChartNodesProps {
-    year: number
     weeks: Contribution[][]
+    // eslint-disable-next-line no-unused-vars
     setDay: (newDay: Contribution | null) => void 
 }
 
-export const ContributionChartNodes: React.FC<ContributionChartNodesProps> = ({ year, weeks, setDay }) => {
+export const ContributionChartNodes: React.FC<ContributionChartNodesProps> = ({  weeks, setDay }) => {
     const getMonthStartWeek = (days: Contribution[]): string | null => {
         // Check if a date has a first day of the month and then extract the month from that.
         for (const day of days) {

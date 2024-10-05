@@ -5,6 +5,6 @@ export interface Contribution {
 }
 
 export interface ContributionData {
-    total: Record<string, number>
-    contributions: Contribution[]
+    totals: Record<string, number>
+    contributions: Record<string, Contribution[]> 
 }

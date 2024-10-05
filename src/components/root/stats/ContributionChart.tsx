@@ -1,5 +1,5 @@
 "use client";
-import React, { cache, useEffect } from "react";
+import React from "react";
 import { Legend } from "./Legend";
 import { Contribution } from "@/app/util/Contribution";
 import { Button } from "@/components/Button";
@@ -11,55 +11,75 @@ interface ContributionChartProps {
     totals: Record<string, number>
 }
 
-
-
+const LAST_YEAR = "last_year";
 export const ContributionChart: React.FC<ContributionChartProps> = ({ allContributions, totals }) => {
-    const [year, setYear] = React.useState<string>("last-year");
-    const contributions = [...allContributions[year]] ?? [];
+    const [year, setYear] = React.useState<string>(LAST_YEAR);
+    const [day, setDay] = React.useState<Contribution | null>(null);
 
-    const yearForChart = year === "last-year" ? new Date().getFullYear() - 1 : parseInt(year);
-    // create new date object from year
-    let firstDayOfYear = new Date(yearForChart, 0, 1);
-    if (year === "last-year") {
-        firstDayOfYear = new Date(contributions[0].date);
-        firstDayOfYear.setDate(firstDayOfYear.getDate() + 1);
-    }
 
-    const startDayOfWeek = firstDayOfYear.getDay();
+    // Memoize contributions calculation
+    const weeks = React.useMemo(() => {
+        const contributionsForYear = allContributions[year] ?? [];
+        const contributionsCopy = Array.from(contributionsForYear);
 
-    for (let i = 0; i < startDayOfWeek; i++) {
-        contributions.unshift({ date: "", count: 0, level: -1 });
-    }
+        const yearForChart =
+            year === LAST_YEAR ? new Date().getFullYear() - 1 : parseInt(year);
 
-    const weeks: Contribution[][] = [];
-    for (let i = 0; i < contributions.length; i += 7) {
-        weeks.push(contributions.slice(i, i + 7));
-    }
+        // Create new date object from year
+        let firstDayOfYear = new Date(yearForChart, 0, 1);
+        if (year === LAST_YEAR) {
+            if (contributionsCopy.length > 0) {
+                firstDayOfYear = new Date(contributionsCopy[0].date);
+                firstDayOfYear.setDate(firstDayOfYear.getDate() + 1);
+            }
+        }
+
+        const startDayOfWeek = firstDayOfYear.getDay();
+
+        // Add filler contributions at the start
+        for (let i = 0; i < startDayOfWeek; i++) {
+            contributionsCopy.unshift({ date: "", count: 0, level: -1 });
+        }
+
+        // Build weeks array
+        const weeks: Contribution[][] = [];
+        for (let i = 0; i < contributionsCopy.length; i += 7) {
+            weeks.push(contributionsCopy.slice(i, i + 7));
+        }
+
+        return weeks;
+    }, [allContributions, year]);
 
     const getYearsBetween = () => {
         // Return array of years between 2017 and current year
+        const currentYear = new Date().getFullYear();
         const years = [];
-        for (let i = 2017; i <= new Date().getFullYear(); i++) {
+        for (let i = 2017; i <= currentYear; i++) {
             years.push(i);
         }
         return years;
     };
 
-    const [day, setDay] = React.useState<Contribution | null>(null);
-
     const daySummary = () => {
-        // If -1 level, then its a filler block for the start of the year.
-        if (day === null || day.level === -1) return "Hover over a day to see my contributions.";
-        // JS parses the date as 1 day before, so we add 1 day to the date.
+        // If level is -1, then it's a filler block for the start of the year.
+        if (day === null || day.level === -1)
+            return "Hover over a day to see my contributions.";
+
         const dateParsed = new Date(day.date);
         dateParsed.setDate(dateParsed.getDate() + 1);
-        const dateStr = dateParsed.toLocaleDateString("default", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+        const dateStr = dateParsed.toLocaleDateString("default", {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+        });
+
         if (day.count === 0) return `No contributions on ${dateStr}.`;
         return `${day.count} contributions on ${dateStr}.`;
     };
 
     const getYearStr = () => {
-        if (year === "last-year") return "the last year";
+        if (year === LAST_YEAR) return "the last year";
         return year;
     };
 
@@ -71,7 +91,10 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
                 <div className="flex w-full">
                     <DaysOfWeek />
                     <div className="flex flex-col w-full flex-wrap">
-                        <ContributionChartNodes year={yearForChart} weeks={weeks} setDay={(newDay) => setDay(newDay)} />
+                        <ContributionChartNodes
+                            weeks={weeks}
+                            setDay={(newDay) => setDay(newDay)}
+                        />
                         <div className="my-2 flex flex-row item-center justify-between">
                             <Legend />
                             <div className="flex flex-row items-center justify-center flex-wrap">
@@ -80,7 +103,7 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
                                     className="block lg:hidden text-sm ml-4 cursor-pointer border-none hover:border-none bg-transparent underline"
                                     onChange={(e) => setYear(e.target.value)}
                                 >
-                                    <option value={"last-year"}>Last Year</option>
+                                    <option value={LAST_YEAR}>Last Year</option>
                                     {getYearsBetween().reverse().map((yearIdx) =>
                                         <option key={yearIdx} value={yearIdx}>{yearIdx}</option>
                                     )}
@@ -98,8 +121,8 @@ export const ContributionChart: React.FC<ContributionChartProps> = ({ allContrib
                                     );
                                 })}
                                 <Button
-                                    className={`hidden lg:block text-sm ml-4 cursor-pointer border-none hover:border-none hover:text-sky-500 ${year === "last-year" ? "underline" : ""}`}
-                                    onClick={() => setYear("last-year")}
+                                    className={`hidden lg:block text-sm ml-4 cursor-pointer border-none hover:border-none hover:text-sky-500 ${year === LAST_YEAR ? "underline" : ""}`}
+                                    onClick={() => setYear(LAST_YEAR)}
                                 >
                                     Last Year
                                 </Button>

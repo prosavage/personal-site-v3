@@ -1,7 +1,7 @@
 import { Separator } from "@/components/Separator";
 import { ContributionChart } from "@/components/root/stats/ContributionChart";
 import { cache } from "react";
-import { Contribution, ContributionData } from "../util/Contribution";
+import { ContributionData } from "../util/Contribution";
 
 interface StatsProps {
 }
@@ -11,38 +11,14 @@ interface StatsProps {
 export const getContributionData = cache(async () => {
     const fetchOpts = { next: { revalidate: 3600 } };
     const result = await fetch(
-        "https://github-contributions-api.jogruber.de/v4/prosavage",
+        "https://gh-contributions-chart-data.fly.dev/contributions/prosavage",
         fetchOpts,
     );
 
     const data: ContributionData = await result.json();
-    const sortedContributions: Record<string, Contribution[]> = {};
-
-    const totals = data.total;
-
-
-
-    sortedContributions["last-year"] = [];
-    for (let i = 0; i < data.contributions.length; i++) {
-        const contribution = data.contributions[i];
-        const year = contribution.date.split("-")[0];
-        if (!sortedContributions[year]) {
-            sortedContributions[year] = [];
-        }
-
-        sortedContributions[year].push(contribution);
-    }
-
-    const resultLastYear = await fetch(
-        "https://github-contributions-api.jogruber.de/v4/prosavage?y=last",
-       fetchOpts,
-    );
-
-    const lastYearData: ContributionData = await resultLastYear.json();
-    sortedContributions["last-year"] = lastYearData.contributions;
-
-    totals["last-year"] = lastYearData.total["lastYear"];
-
+    
+    const sortedContributions = data.contributions;
+    const totals = data.totals;
     return [sortedContributions, totals] as const;
 });
 
