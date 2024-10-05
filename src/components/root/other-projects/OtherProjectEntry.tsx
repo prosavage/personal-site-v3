@@ -3,7 +3,6 @@ import { Preview } from "./Preview";
 import { Button } from "@/components/Button";
 import { HiOutlineGlobeAlt } from "react-icons/hi";
 import { VscGithub } from "react-icons/vsc";
-import { useRouter } from "next/router";
 
 interface OtherProjectEntryProps {
       src: string

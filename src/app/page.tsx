@@ -1,6 +1,5 @@
 import { Hero } from "./sections/Hero";
 import { NotableProjects } from "./sections/NotableProjects";
-import { OtherProjects } from "./sections/OtherProjects";
 import { Stats } from "./sections/Stats";
 
 // Revalidate this page every hour for github contributions data.
@@ -14,7 +13,6 @@ export default function Home({}) {
             <Hero />
             <Stats />
             <NotableProjects />
-            {/* <OtherProjects /> */}
         </div>
     );
 }
