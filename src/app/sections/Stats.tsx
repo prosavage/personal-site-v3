@@ -11,7 +11,7 @@ interface StatsProps {
 export const getContributionData = cache(async () => {
     const result = await fetch(
         "https://gh-contributions-chart-data.fly.dev/contributions/prosavage",
-        { cache: "force-cache", next: { revalidate: 3600 } },
+        { next: { revalidate: 3600 } },
     );
 
     const data: ContributionData = await result.json();
