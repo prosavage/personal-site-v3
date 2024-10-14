@@ -22,7 +22,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={poppins.className}>
-                <main className="flex min-h-screen flex-col justify-start p-2 sm:p-12 md:p-24 items-center">
+                <main className="flex min-h-[100dvh] flex-col justify-start p-2 sm:p-12 md:p-24 items-center">
                     {children}
                 </main>
             <SpeedInsights />

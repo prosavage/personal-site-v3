@@ -20,3 +20,20 @@ body {
   /* color: rgb(#F2F2F2); */
   background: #F2F2F2
 }
+
+::-webkit-scrollbar {
+    @apply w-2.5 h-2.5;
+
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-transparent
+}
+
+::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-gray-400 border-[1px] border-transparent border-solid bg-clip-padding;
+}
+
+::-webkit-scrollbar-corner {
+    @apply bg-gray-400;
+}
